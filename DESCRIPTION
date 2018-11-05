@@ -1,0 +1,15 @@
+Package: cworks
+Title: Functions to Query CourseWorks Info
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Joyce",
+           family = "Robbins",
+           role = c("aut", "cre"),
+           email = "jtr13@columbia.edu")
+Description: Functions to query CourseWorks info from exported files
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    readr

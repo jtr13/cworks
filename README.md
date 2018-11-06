@@ -9,7 +9,11 @@ Everytime new versions of the files are downloaded, call `create_NEW(path, patte
 
 At the beginning of every session, get the student data with `get_student_data(path, pattern)`.
 
-The current defaults for both functions are: `path = "~/Documents/Students"`, `pattern = "Fall_2018"`
+The current default parameters are: 
+
+`create_NEW(path = "~/Documents/Students", pattern = "Fall_2018")`
+
+`get_student_data(path = "~/Documents/Students", pattern = "NEW")`
 
 ### Examples:
 

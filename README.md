@@ -15,7 +15,8 @@ The current defaults for both functions are: `path = "~/Documents/Students"`, `p
 
 Start session with:
 
-`library(cworks)`
+`library(cworks)`  
+
 `df <- get_student_data()`    
 
 and then pass `df` to other functions as desired:

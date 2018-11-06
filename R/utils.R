@@ -1,5 +1,3 @@
-#' @importFrom magrittr "%>%"
-
 fixfiles <- function(filename, path) {
   df <- readr::read_csv(file.path(path,filename)) %>%
     dplyr::filter(!stringr::str_detect(Student, "Points")) %>%
@@ -9,9 +7,13 @@ fixfiles <- function(filename, path) {
   colnames(df) <-
   stringr::str_remove_all(colnames(df)," \\([0-9]+\\)")
 
+  df <- df %>% dplyr::rename(UNI = `SIS User ID`) %>%
+    dplyr::select(-ID, -`SIS Login ID`)
+
   # choose columns
+  # (the select looks odd since the column before Homework Current Points varies)
   df <- df %>%
-    dplyr::select(`Student`:`Homework Current Points`)
+    dplyr::select(`Student`:`Homework Current Points`) %>% select(-`Homework Current Points`)
 
   # change section name
   sect <- df$Section[1]
@@ -26,14 +28,21 @@ fixfiles <- function(filename, path) {
     dplyr::mutate(Test = readr::parse_number(Test))
 
   readr::write_csv(df, file.path(path, paste0("NEW", filename)))
+}
 
+# find_student <- function(name, data) {
+#   df <- data %>%
+#     dplyr::filter(stringr::str_detect(Student, name))
+#   if (nrow(df) < 1) df <- NULL
+#   return(df)
+# }
+
+find_student <- function(name, data) {
+  data %>%
+    dplyr::filter(stringr::str_detect(Student, name))
 }
 
 
-get_student <- function(name, students) {
-  df <- students %>%
-    dplyr::filter(grepl(name, Student))
-  if (nrow(df) < 1) df <- NULL
-  return(df)
+notfound <- function() {
+  message("No matches found.")
 }
-

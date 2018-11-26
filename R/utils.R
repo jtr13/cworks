@@ -30,14 +30,10 @@ fixfiles <- function(filename, path) {
   readr::write_csv(df, file.path(path, paste0("NEW", filename)))
 }
 
-# find_student <- function(name, data) {
-#   df <- data %>%
-#     dplyr::filter(stringr::str_detect(Student, name))
-#   if (nrow(df) < 1) df <- NULL
-#   return(df)
-# }
 
 find_student <- function(name, data) {
+  if (is.null(data))
+    data <- studenv$studdata
   data %>%
     dplyr::filter(stringr::str_detect(Student, name))
 }

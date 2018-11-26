@@ -2,11 +2,11 @@
 
 export("%>%")
 export(create_NEW)
-export(get_student_data)
 export(hmk)
 export(lpr)
 export(missed_test)
 export(name2uni)
+export(set_student_data)
 export(tst)
 export(uni2name)
 export(wc)

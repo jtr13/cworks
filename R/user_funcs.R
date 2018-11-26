@@ -35,7 +35,7 @@ create_NEW <- function(path = "~/Documents/Students",
 
 }
 
-############### get_student_data() ###############
+############### set_student_data() ###############
 
 #' Get student info in tidy format
 #'
@@ -50,14 +50,18 @@ create_NEW <- function(path = "~/Documents/Students",
 #' @export
 #'
 #' @examples
-#' stud_df <- get_student_data()
-#' stud_df <- get_student_data("~/Downloads")
+#' stud_df <- set_student_data()
+#' stud_df <- set_student_data("~/Downloads")
 
-get_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
+set_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
 
   files <- dir(path, pattern)
 
-  purrr::map_df(files, ~readr::read_csv(file.path(path, .x))) %>% dplyr::select(`Student`:`TestScore`)
+  assign("studenv", new.env(), envir = .GlobalEnv)
+
+  studenv$studdata <- purrr::map_df(files, ~readr::read_csv(file.path(path, .x))) %>% dplyr::select(`Student`:`TestScore`)
+
+
 }
 
 ################### hmk() ###################
@@ -75,13 +79,17 @@ get_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
 #'
 #' @return a tibble with columns: Student, Homework, HmkScore, Section
 #'
+#' @details
+#'
+#' If a data frame of student info is not provided, the data stored in an internal environment with `set_student_data()` will be used instead.
+#'
 #' @export
 #'
 #' @examples
-#' stud_df <- get_student_data("~/Downloads")
-#' hmk("Sarah", 1, stud_df)
+#' set_student_data("~/Downloads")
+#' hmk("Sarah", 1)
 
-hmk <- function(name, num, data) {
+hmk <- function(name, num = 1, data = NULL) {
   df <- find_student(name, data)
   if (nrow(df) > 0) {
     df %>%
@@ -111,7 +119,8 @@ hmk <- function(name, num, data) {
 #' stud_df <- get_student_data("~/Downloads")
 #' missed_test(1, stud_df)
 
-missed_test <- function(num = 1, data) {
+missed_test <- function(num = 1, data = NULL) {
+  if (data == NULL) data <- studenv$studdata
   df <- data %>% dplyr::filter(Test == num) %>%
     dplyr::filter(is.na(TestScore))
 
@@ -142,7 +151,7 @@ missed_test <- function(num = 1, data) {
 #' lpr("Jing", stud_df)
 
 
-lpr <- function(name, data) {
+lpr <- function(name, data = NULL) {
   df <- find_student(name, data)
   if (nrow(df) > 0) {
     df %>%
@@ -168,7 +177,7 @@ lpr <- function(name, data) {
 #' stud_df <- get_student_data("~/Downloads")
 #' name2uni("Daisy", stud_df)
 
-name2uni <- function(name, data) {
+name2uni <- function(name, data = NULL) {
 
   df <- find_student(name, data)
   if (nrow(df) > 0) {
@@ -187,8 +196,6 @@ name2uni <- function(name, data) {
 #'
 #' @param name string containing all or part of student name to search for
 #'
-#' @param num test number
-#'
 #' @param data data frame of student info in tidy format
 #'
 #' @return a tibble with columns: Student, Test, TestScore, Section
@@ -197,13 +204,12 @@ name2uni <- function(name, data) {
 #'
 #' @examples
 #' stud_df <- get_student_data("~/Downloads")
-#' tst("Emily", 1, stud_df)
+#' tst("Emily")
 
-tst <- function(name, num, data) {
+tst <- function(name, data = NULL) {
   df <- find_student(name, data)
   if (nrow(df) > 0) {
     df %>%
-    dplyr::filter(Test == num) %>%
     dplyr::distinct(Student, Test, TestScore, Section)
   } else {
   notfound()
@@ -229,8 +235,8 @@ tst <- function(name, num, data) {
 #' stud_df <- get_student_data("~/Downloads")
 #' uni2name("jtr13", stud_df)
 
-uni2name <- function(uni, data) {
-
+uni2name <- function(uni, data = NULL) {
+  if (data == NULL) data <- studenv$studdata
   df <- data %>% dplyr::filter(stringr::str_detect(UNI, uni))
   if (nrow(df) > 0) {
     df %>% dplyr::distinct(Student, UNI, Section)
@@ -252,7 +258,7 @@ uni2name <- function(uni, data) {
 #' @export
 #'
 
-wc <- function(name, data) {
+wc <- function(name, data = NULL) {
 
   df <- find_student(name, data)
   if (nrow(df) > 0) {

@@ -233,7 +233,7 @@ uni2name <- function(uni, data) {
 
   df <- data %>% dplyr::filter(stringr::str_detect(UNI, uni))
   if (nrow(df) > 0) {
-    dplyr::distinct(Student, UNI, Section)
+    df %>% dplyr::distinct(Student, UNI, Section)
   } else {
     notfound()
   }

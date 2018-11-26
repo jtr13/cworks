@@ -221,7 +221,7 @@ tst <- function(name, data = NULL) {
 #' What's the name?
 #'
 #' @description
-#' Returns student name for any match in student UNI
+#' Returns student name(s) for any match in student UNI
 #'
 #' @param uni string containing all or part of student UNI to search for
 #'

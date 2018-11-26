@@ -4,7 +4,7 @@
 \alias{hmk}
 \title{Get homework score}
 \usage{
-hmk(name, num, data)
+hmk(name, num = 1, data = NULL)
 }
 \arguments{
 \item{name}{string containing all or part of student name to search for}
@@ -19,7 +19,10 @@ a tibble with columns: Student, Homework, HmkScore, Section
 \description{
 Returns homework score(s) for any matches in student name and assignment number.
 }
+\details{
+If a data frame of student info is not provided, the data stored in an internal environment with \code{set_student_data()} will be used instead.
+}
 \examples{
-stud_df <- get_student_data("~/Downloads")
-hmk("Sarah", 1, stud_df)
+set_student_data("~/Downloads")
+hmk("Sarah", 1)
 }

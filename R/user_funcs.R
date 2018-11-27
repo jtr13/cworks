@@ -117,7 +117,7 @@ hmk <- function(name, data = NULL) {
 #' missed_test(1, stud_df)
 
 missed_test <- function(num = 1, data = NULL) {
-  if (data == NULL) data <- studenv$studdata
+  if (is.null(data)) data <- studenv$studdata
   df <- data %>% dplyr::filter(Test == num) %>%
     dplyr::filter(is.na(TestScore))
 
@@ -230,10 +230,10 @@ tst <- function(name, data = NULL) {
 #'
 #' @examples
 #' stud_df <- get_student_data("~/Downloads")
-#' uni2name("jtr13", stud_df)
+#' uni2name("jtr13")
 
 uni2name <- function(uni, data = NULL) {
-  if (data == NULL) data <- studenv$studdata
+  if (is.null(data)) data <- studenv$studdata
   df <- data %>% dplyr::filter(stringr::str_detect(UNI, uni))
   if (nrow(df) > 0) {
     df %>% dplyr::distinct(Student, UNI, Section)

@@ -59,7 +59,7 @@ set_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
 
   assign("studenv", new.env(), envir = .GlobalEnv)
 
-  studenv$studdata <- purrr::map_df(files, ~readr::read_csv(file.path(path, .x))) %>% dplyr::select(`Student`:`TestScore`)
+  studenv$studdata <- suppressMessages(purrr::map_df(files, ~readr::read_csv(file.path(path, .x))) %>% dplyr::select(`Student`:`TestScore`))
 
 
 }
@@ -87,13 +87,12 @@ set_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
 #'
 #' @examples
 #' set_student_data("~/Downloads")
-#' hmk("Sarah", 1)
+#' hmk("Sarah")
 
-hmk <- function(name, num = 1, data = NULL) {
+hmk <- function(name, data = NULL) {
   df <- find_student(name, data)
   if (nrow(df) > 0) {
     df %>%
-    dplyr::filter(Homework == num) %>%
     dplyr::distinct(Student, Homework, HmkScore, Section)
   } else {
     notfound()

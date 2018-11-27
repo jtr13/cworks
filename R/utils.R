@@ -1,7 +1,7 @@
 fixfiles <- function(filename, path) {
-  df <- suppressMessages(readr::read_csv(file.path(path,filename)) %>%
+  df <- readr::read_csv(file.path(path,filename)) %>%
     dplyr::filter(!stringr::str_detect(Student, "Points")) %>%
-    dplyr::filter(Student != "Student, Test"))
+    dplyr::filter(Student != "Student, Test")
 
   # get rid of numbers in parentheses
   colnames(df) <-
@@ -13,7 +13,7 @@ fixfiles <- function(filename, path) {
   # choose columns
   # (the select looks odd since the column before Homework Current Points varies)
   df <- df %>%
-    dplyr::select(`Student`:`Homework Current Points`) %>% select(-`Homework Current Points`)
+    dplyr::select(`Student`:`Homework Current Points`) %>% dplyr::select(-`Homework Current Points`)
 
   # change section name
   sect <- df$Section[1]

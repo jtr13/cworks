@@ -1,10 +1,7 @@
-# suppress readr info
-options(readr.num_columns = 0)
-
 fixfiles <- function(filename, path) {
-  df <- readr::read_csv(file.path(path,filename)) %>%
+  df <- suppressMessages(readr::read_csv(file.path(path,filename)) %>%
     dplyr::filter(!stringr::str_detect(Student, "Points")) %>%
-    dplyr::filter(Student != "Student, Test")
+    dplyr::filter(Student != "Student, Test"))
 
   # get rid of numbers in parentheses
   colnames(df) <-

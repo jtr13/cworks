@@ -69,11 +69,9 @@ set_student_data <- function(path = "~/Documents/Students", pattern = "NEW") {
 #' Get homework score
 #'
 #' @description
-#' Returns homework score(s) for any matches in student name and assignment number.
+#' Returns homework score(s) for any matches in student name.
 #'
 #' @param name string containing all or part of student name to search for
-#'
-#' @param num homework number
 #'
 #' @param data data frame of student info in tidy format
 #'
@@ -191,7 +189,7 @@ name2uni <- function(name, data = NULL) {
 #' Get test score
 #'
 #' @description
-#' Returns test score(s) for any matches in student name and test number.
+#' Returns test score(s) for any matches in student name.
 #'
 #' @param name string containing all or part of student name to search for
 #'

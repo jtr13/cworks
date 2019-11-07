@@ -15,6 +15,9 @@ Imports:
     purrr,
     readr,
     stringr,
-    tidyr
+    tidyr,
+    rvest,
+    googlesheets4,
+    googledrive
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

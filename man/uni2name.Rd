@@ -4,7 +4,7 @@
 \alias{uni2name}
 \title{What's the name?}
 \usage{
-uni2name(uni, data)
+uni2name(uni, data = NULL)
 }
 \arguments{
 \item{uni}{string containing all or part of student UNI to search for}
@@ -15,9 +15,9 @@ uni2name(uni, data)
 a tibble with columns: Student, UNI, Section
 }
 \description{
-Returns student name for any match in student UNI
+Returns student name(s) for any match in student UNI
 }
 \examples{
 stud_df <- get_student_data("~/Downloads")
-uni2name("jtr13", stud_df)
+uni2name("jtr13")
 }

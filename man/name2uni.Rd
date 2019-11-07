@@ -4,7 +4,7 @@
 \alias{name2uni}
 \title{What's the UNI?}
 \usage{
-name2uni(name, data)
+name2uni(name, data = NULL)
 }
 \arguments{
 \item{name}{string containing all or part of student name to search for}

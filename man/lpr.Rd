@@ -4,7 +4,7 @@
 \alias{lpr}
 \title{Get number of late passes remaining}
 \usage{
-lpr(name, data)
+lpr(name, data = NULL)
 }
 \arguments{
 \item{name}{string containing all or part of student name to search for}

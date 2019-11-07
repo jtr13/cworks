@@ -4,7 +4,7 @@
 \alias{missed_test}
 \title{List students who missed tests}
 \usage{
-missed_test(num = 1, data)
+missed_test(num = 1, data = NULL)
 }
 \arguments{
 \item{num}{test number}

@@ -4,7 +4,7 @@
 \alias{wc}
 \title{Which class?}
 \usage{
-wc(name, data)
+wc(name, data = NULL)
 }
 \arguments{
 \item{name}{string containing all or part of student name to search for}

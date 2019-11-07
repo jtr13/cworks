@@ -4,12 +4,10 @@
 \alias{tst}
 \title{Get test score}
 \usage{
-tst(name, num, data)
+tst(name, data = NULL)
 }
 \arguments{
 \item{name}{string containing all or part of student name to search for}
-
-\item{num}{test number}
 
 \item{data}{data frame of student info in tidy format}
 }
@@ -17,9 +15,9 @@ tst(name, num, data)
 a tibble with columns: Student, Test, TestScore, Section
 }
 \description{
-Returns test score(s) for any matches in student name and test number.
+Returns test score(s) for any matches in student name.
 }
 \examples{
 stud_df <- get_student_data("~/Downloads")
-tst("Emily", 1, stud_df)
+tst("Emily")
 }

@@ -233,6 +233,7 @@ tst <- function(name, data = NULL) {
 #' uni2name("jtr13")
 
 uni2name <- function(uni, data = NULL) {
+  if (is.numeric(uni)) uni <- as.character(uni)
   if (is.null(data)) data <- studenv$studdata
   df <- data %>% dplyr::filter(stringr::str_detect(UNI, uni))
   if (nrow(df) > 0) {
